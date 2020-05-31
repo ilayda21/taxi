@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+</head>
+<body>
+    <div class="popup" id="popup">
+        <div class="popup-content" id="popup-content"></div>
+    </div>
+
+    <div class="container">
+        <img class="taxi-img" src="./resources/taxi.gif"/>
+        <div class="title">Our Taxi</div>
+        <div class="clockContainer">
+            <div class="dateContainer">
+                <div id="dateField"></div> - <div id="timeField"></div>
+            </div>
+            <button class="time-button" id="forward-button"><img class="forward" src="./resources/forwardx2.png" width="15">Next Month</button>
+            <button class="time-button" id="forward-button-six"><img class="forward" src="./resources/forwardx3.png" width="15">Next 6 Months</button>
+        </div>
+        <div class="identity-field">
+            <select id="identity-combobox"></select>
+            <button id="add_7_participants">Add Multi-Participants</button>
+            <p id="explanation-id">Changing this field will change the active account.</p>
+        </div>
+
+        <div class="contract-balance">
+            <div class="label-balance">Contract Balance:</div>
+            <div class="value-balance" id="contract-balance"></div>
+        </div>
+
+        <div class="functions">
+            <div>
+                <table id="participants-table" style="width:100%"></table>
+            </div>
+
+            <div class="division">
+                <div class="division-label">PARTICIPANT</div>
+                <div class="subdiv-container">
+                    <div class="subdiv">
+                        <div class="subdiv-label">Participant's Action:</div>
+                        <div class="function-buttons">
+                            <div class="function-pair">
+                                <button class="function-button" id="join-button" type="button">Join the Taxi Club</button>
+                                <div class="error-field" id="errorField-1"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subdiv">
+                        <div class="subdiv-label">Manager's Action:</div>
+                        <div class="function-buttons">
+                            <div class="function-pair">
+                                <button class="function-button" id="pay-dividend-button" type="button">Pay Dividend</button>
+                                <div class="error-field" id="errorField-14"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="division">
+                <div class="division-label">CAR DEALER</div>
+                <div class="subdiv-container">
+                    <div class="subdiv">
+                        <div class="subdiv-label">Manager's Action:</div>
+                        <div class="function-buttons">
+                            <div class="function-pair">
+                                <button class="function-button" id="set-dealer-button" type="button">Set Car Dealer</button>
+                                <div class="error-field" id="errorField-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="division">
+                <div class="division-label">CAR</div>
+                <div class="card-items">
+                    <div class="card-item">
+                        <div class="car-main-label">Proposed Car</div>
+                        <div class="car-pair">
+                            <div class="car-label">Car ID : </div>
+                            <div id="proposed-id"></div>
+                        </div>
+
+                        <div class="car-pair">
+                            <div class="car-label">Price : </div>
+                            <div id="proposed-price"></div>
+                        </div>
+
+                        <div class="car-pair">
+                            <div class="car-label">Offer Valid Time : </div>
+                            <div id="proposed-time"></div>
+                        </div>
+
+                        <div class="car-pair">
+                            <div class="car-label">Approval State : </div>
+                            <div id="proposed-approval-state"></div>
+                        </div>
+
+                        <button id="approve-proposed-car" class="approve">+
+                            <span class="tooltiptext">Approve</span>
+                        </button>
+                        <div class="error-field-box" id="errorField-4"></div>
+                    </div>
+                    <div class="card-item">
+                        <div class="car-main-label">Approved Car</div>
+                        <div class="car-pair">
+                            <div class="car-label">Car ID : </div>
+                            <div id="approved-id"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-item">
+                        <div class="car-main-label">Repurchase Car Proposal</div>
+                        <div class="car-pair">
+                            <div class="car-label">Car ID : </div>
+                            <div id="repurchase-car-id"></div>
+                        </div>
+
+                        <div class="car-pair">
+                            <div class="car-label">Price : </div>
+                            <div id="repurchase-car-price"></div>
+                        </div>
+
+                        <div class="car-pair">
+                            <div class="car-label">Offer Valid Time : </div>
+                            <div id="repurchase-car-time"></div>
+                        </div>
+
+                        <div class="car-pair">
+                            <div class="car-label">Approval State : </div>
+                            <div id="repurchase-car-approval-state"></div>
+                        </div>
+                        <button id="approve-car-repurchase" class="approve">+
+                            <span class="tooltiptext">Approve</span>
+                        </button>
+                        <div class="error-field-box" id="errorField-15"></div>
+                    </div>
+                </div>
+                <div class="subdiv-container">
+                    <div class="subdiv">
+                        <div class="subdiv-label">Car Dealer's Action:</div>
+                        <div class="function-buttons">
+                            <div class="function-pair">
+                                <button class="function-button" id="propose-car-button" type="button">Propose Car</button>
+                                <div class="error-field" id="errorField-3"></div>
+                            </div>
+                            <div class="function-pair">
+                                <button class="function-button" id="propose-repurchase-car-button" type="button">Propose Repurchase the Car</button>
+                                <div class="error-field" id="errorField-16"></div>
+                            </div>
+                            <div class="function-pair">
+                                <button class="function-button" id="repurchase-car-button" type="button">Repurchase the Proposed Car</button>
+                                <div class="error-field" id="errorField-6"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subdiv">
+                        <div class="subdiv-label">Manager's Action:</div>
+                        <div class="function-buttons">
+                            <div class="function-pair">
+                                <button class="function-button" id="purchase-car-button" type="button">Purchase the Proposed Car</button>
+                                <div class="error-field" id="errorField-5"></div>
+                            </div>
+                            <div class="function-pair">
+                                <button class="function-button" id="pay-expenses-button" type="button">Pay Expenses</button>
+                                <div class="error-field" id="errorField-13"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="division">
+                <div class="division-label">DRIVER</div>
+                <div class="card-items">
+                    <div class="card-item">
+                        <div class="car-main-label">Propose Driver</div>
+                        <div class="car-pair">
+                            <div class="car-label">Driver ID : </div>
+                            <div id="proposed-driver-id"></div>
+                        </div>
+
+                        <div class="car-pair">
+                            <div class="car-label">Salary : </div>
+                            <div id="proposed-driver-salary"></div>
+                        </div>
+
+                        <div class="car-pair">
+                            <div class="car-label">Approval State : </div>
+                            <div id="proposed-approval-state-driver"></div>
+                        </div>
+
+                        <button id="approve-proposed-driver" class="approve">+
+                            <span class="tooltiptext">Approve</span>
+                        </button>
+                        <div class="error-field-box" id="errorField-7"></div>
+                    </div>
+
+                    <div class="card-item">
+                        <div class="car-main-label">Hired Driver</div>
+                        <div class="car-pair">
+                            <div class="car-label">Driver ID : </div>
+                            <div id="approved-driver-id"></div>
+                        </div>
+
+                        <div class="car-pair">
+                            <div class="car-label">Salary : </div>
+                            <div id="approved-driver-salary"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="subdiv-container">
+                    <div class="subdiv">
+                        <div class="subdiv-label">Manager's Action:</div>
+                        <div class="function-buttons">
+                            <div class="function-pair">
+                                <button class="function-button" id="propose-driver-button" type="button">Propose Driver</button>
+                                <div class="error-field" id="errorField-8"></div>
+                            </div>
+
+                            <div class="function-pair">
+                                <button class="function-button" id="hire-driver-button" type="button">Hire Driver</button>
+                                <div class="error-field" id="errorField-9"></div>
+                            </div>
+
+                            <div class="function-pair">
+                                <button class="function-button" id="fire-driver-button" type="button">Fire Driver</button>
+                                <div class="error-field" id="errorField-10"></div>
+                            </div>
+
+                            <div class="function-pair">
+                                <button class="function-button" id="pay-salary-button" type="button">Pay Salary To Driver</button>
+                                <div class="error-field" id="errorField-12"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="division">
+                <div class="division-label">CUSTOMER</div>
+                <div class="function-pair">
+                    <button class="function-button" id="get-charge-button" type="button">Get Charge</button>
+                    <div class="error-field" id="errorField-11"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script src="./Taxi.js"></script>
+    <script src="./Time.js"></script>
+    <script>
+    </script>
+</body>
+</html>
